@@ -6,7 +6,7 @@ import os
 import glob
 import datetime
 import requests
-import pyodbc
+
 from datetime import date
 
 from bs4 import BeautifulSoup
