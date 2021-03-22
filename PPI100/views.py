@@ -7,7 +7,7 @@ import re
 import xml.etree.ElementTree as ET
 import pandas as pd
 import json
-import pyodbc
+
 from datetime import datetime
 from .scraper import test
 from .scraper import Scraped_100PPI_Data
