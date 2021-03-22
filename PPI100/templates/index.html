@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <link rel="stylesheet"
+        href=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+  <script src=
+"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+  </script>
+  <script src=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+  </script>
+
+<body>
+
+<h1>100 PPI Commodity prices</h1>
+<form method="POST">
+  {% csrf_token %}
+  <button class="btn btn-success btn-lg float-right"
+                        type="submit" name="refresh">
+                     Refresh Data
+                </button>
+</form>
+
+
+<form action="/PPI100/result/" method="POST" name="PPI" onsubmit="return validateForm()" required> {% csrf_token %}
+
+  <label for="cars">Select a commodity :</label>
+
+  <input list="brow" name="product_name">
+  <datalist id="brow">
+    <select >
+      {% if d %}
+      {% for i in d %}
+        <option value='{{i.commodity}}'>{{i.commodity}}</option>
+      {% endfor %}
+      {% endif %}
+    <select>
+
+  </datalist>
+
+
+<br>
+<br>
+
+<label for="Start Date">Start Date:</label>
+<input type="date" id="isdate" name="sdate"><br><br>
+<label for="Start Date">End Date:</label>
+<input type="date" id="ienddate" name="edate"><br><br>
+<input type="submit">
+</form>
+
+
+
+
+</form>
+
+<script>
+function validateForm() {
+  var name = document.forms["PPI"]["product_name"].value;
+  var sdate = document.forms["PPI"]["sdate"].value;
+  var edate = document.forms["PPI"]["edate"].value;
+  if (name == "" || name == null || sdate == "" || sdate == null || edate == "" || edate == null) {
+    alert("Name and Date must be filled out");
+    return false;
+  }
+}
+</script>
+</body>
+</html>
