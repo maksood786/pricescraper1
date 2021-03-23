@@ -7,7 +7,7 @@ import re
 import xml.etree.ElementTree as ET
 import pandas as pd
 import json
-import pyodbc
+
 from datetime import datetime
 from .scraper import test
 from .scraper import Scraped_100PPI_Data
@@ -19,6 +19,7 @@ def index(request):
     if request.method == 'POST' and 'refresh' in request.POST:
         # import ipdb; ipdb.set_trace()
         Scraped_100PPI_Data()
+        
 
     context=getComname()
     return render(request,'index.html',context)

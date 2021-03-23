@@ -6,7 +6,7 @@ import os
 import glob
 import datetime
 import requests
-import pyodbc
+
 from datetime import date
 
 from bs4 import BeautifulSoup
@@ -110,34 +110,36 @@ def Scraped_100PPI_Data():
     dfError.to_excel('Errorlog.xlsx',index=False)
 
 
-    # import ipdb; ipdb.set_trace()
-    dfAllData=dfAllData.merge(dfmapname,on='Code')
+    
+    if dfAllData.empty==False:          
 
-    dfAllData=dfAllData.merge(dfmapnunit,on='Unit')
+        dfAllData=dfAllData.merge(dfmapname,on='Code')
 
-    dfAllData = dfAllData[["Code", "Unit", "En_Commodity","En_Industry", "En_unit","Date1","Date"]]
+        dfAllData=dfAllData.merge(dfmapnunit,on='Unit')
 
-    row_iter = dfAllData.iterrows()
+        dfAllData = dfAllData[["Code", "Unit", "En_Commodity","En_Industry", "En_unit","Date1","Date"]]
 
-    objs = [
+        row_iter = dfAllData.iterrows()
 
-        mst_PPI100(
-            Product_Code = row['Code'],
+        objs = [
 
-            Commodity  = row['En_Commodity'],
-            industry  = row['En_Industry'],
-            Unit  = row['En_unit'],
-            Value  = row['Date1'],
-            Date  = row['Date']
-        )
+            mst_PPI100(
+                Product_Code = row['Code'],
 
-        for index, row in row_iter
-    ]
+                Commodity  = row['En_Commodity'],
+                industry  = row['En_Industry'],
+                Unit  = row['En_unit'],
+                Value  = row['Date1'],
+                Date  = row['Date']
+            )
 
-    mst_PPI100.objects.bulk_create(objs)
+            for index, row in row_iter
+        ]
+
+        mst_PPI100.objects.bulk_create(objs)
 
 
-    # for df_loop in dfAllData.itertuples():
-    #         agency = mst_PPI100.objects.create(Product_Code=df_loop.Code,Commodity=df_loop.En_Commodity,industry=df_loop.En_Industry,Unit=df_loop.En_unit,Value=df_loop.Date1,Date=df_loop.Date)
+        # for df_loop in dfAllData.itertuples():
+        #         agency = mst_PPI100.objects.create(Product_Code=df_loop.Code,Commodity=df_loop.En_Commodity,industry=df_loop.En_Industry,Unit=df_loop.En_unit,Value=df_loop.Date1,Date=df_loop.Date)
 
-    dfAllData.to_excel('100PPI_Data.xlsx',index=False)
+        dfAllData.to_excel('100PPI_Data.xlsx',index=False)
