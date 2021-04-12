@@ -12,6 +12,7 @@ from datetime import datetime
 from .scraper import test
 from .scraper import Scraped_100PPI_Data
 from .models import mst_PPI100
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -19,7 +20,8 @@ def index(request):
     if request.method == 'POST' and 'refresh' in request.POST:
         # import ipdb; ipdb.set_trace()
         Scraped_100PPI_Data()
-        
+        messages.success(request, 'data has been fetched successfully till latest date')
+
 
     context=getComname()
     return render(request,'index.html',context)
@@ -32,6 +34,7 @@ def scraper(request):
         entries= mst_PPI100.objects.all()
         # entries.delete()     #delete entire data from table
         Scraped_100PPI_Data()
+
 
     return render(request,'scraper.html',context)
 
