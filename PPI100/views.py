@@ -54,7 +54,7 @@ def result(request):
         sdate=request.POST.get("sdate")
         edate=request.POST.get("edate")
         product_name=request.POST.get("product_name")
-
+        
         context=getComdata(product_name,sdate,edate)
 
     if context=="empty":

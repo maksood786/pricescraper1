@@ -3,6 +3,12 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+
+    <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -16,9 +22,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
-      </li>
+      </li> -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Select source
@@ -30,15 +36,22 @@
           <a class="dropdown-item" href="#">Something else here</a> -->
         </div>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
+      </li> -->
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+
+
+    <!-- <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    </form> -->
+
+
+
   </div>
+
+
 </nav>
 
     <!-- Bootstrap CSS -->
@@ -48,8 +61,83 @@
   </head>
   <body>
 
+    <button class="tablink" onclick="openPage('Home', this)" id="defaultOpen">Source list</button>
+    <button class="tablink" onclick="openPage('Sample', this)">Sample data</button>
+    <!-- <button class="tablink" onclick="openPage('Contact', this, 'blue')">Contact</button>
+    <button class="tablink" onclick="openPage('About', this, 'orange')">About</button> -->
+
+    <div id="Home" class="tabcontent">
 
 
+      <p><a href="/PPI100">100 PPI</a></p>
+      <p><a href="/sunsris">Sunsris</a></p>
+
+
+    </div>
+
+    <div id="Sample" class="tabcontent">
+
+
+        <table class="table table-striped" id="tblCommodity">
+            <tbody>
+            <tr>
+                <th>Date</th>
+                <th>Commodity</th>
+                <th>Industry</th>
+                <th>Unit</th>
+                <th>Value</th>
+
+            </tr>
+
+
+            <!-- jinja2 Technique -->
+            {% if d %}
+            {% for i in d %}
+            <tr>
+                <!-- <td><a href={{i.Link}} target="_blank" >{{i.Link}}</a></td> -->
+                <td>{{i.Date}}</td>
+                <td>{{i.Commodity}}</td>
+                <td>{{i.industry}}</td>
+                <td>{{i.Unit}}</td>
+                <td>{{i.Value}}</td>
+
+            </tr>
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+
+
+    </div>
+
+    <!-- <div id="Contact" class="tabcontent">
+      <h3>Contact</h3>
+      <p>Get in touch, or swing by for a cup of coffee.</p>
+    </div>
+
+    <div id="About" class="tabcontent">
+      <h3>About</h3>
+      <p>Who we are and what we do.</p>
+    </div> -->
+
+    <script>
+      function openPage(pageName,elmnt,color) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].style.backgroundColor = "";
+        }
+        document.getElementById(pageName).style.display = "block";
+        elmnt.style.backgroundColor = color;
+      }
+
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
