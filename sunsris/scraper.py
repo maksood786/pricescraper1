@@ -1,7 +1,7 @@
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-import pyodbc
+
 from datetime import datetime
 from datetime import date
 import os
