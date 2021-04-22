@@ -58,14 +58,15 @@ def getComdata(product_name,sdate,edate):
     # sdate = sdate.strftime("%m/%d/%Y")
     edate=date_time_obj = datetime.strptime(edate, '%Y-%m-%d')
 
-    df = pd.DataFrame(list(mst_sunsris.objects.filter(Commodity=product_name,Date__gt=sdate,Date__lt=edate).values()))
+    df = pd.DataFrame(list(mst_sunsris.objects.filter(Commodity=product_name,Date__gte=sdate,Date__lte=edate).values()))
 
-    df=df.sort_values(by=['Date'], ascending=[False])
+
     # import ipdb;ipdb.set_trace()
     if df.empty:
         context="empty"
         return context
 
+    df=df.sort_values(by=['Date'], ascending=[False])
     # import ipdb; ipdb.set_trace()
     df = df[['Product_Code','Commodity','industry','Unit','Value','Date']]
     df['Date'] = df['Date'].dt.strftime('%d-%m-%Y')

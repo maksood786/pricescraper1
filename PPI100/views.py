@@ -58,7 +58,9 @@ def result(request):
         context=getComdata(product_name,sdate,edate)
 
     if context=="empty":
+
         return render(request,'noresult.html')
+        # messages.success(request, 'No results found for selected dates')
     else:
         return render(request,'result.html',context)
 
@@ -69,15 +71,16 @@ def getComdata(product_name,sdate,edate):
     # sdate = sdate.strftime("%m/%d/%Y")
     edate=date_time_obj = datetime.strptime(edate, '%Y-%m-%d')
 
-    df = pd.DataFrame(list(mst_PPI100.objects.filter(Commodity=product_name,Date__gt=sdate,Date__lt=edate).values()))
+    df = pd.DataFrame(list(mst_PPI100.objects.filter(Commodity=product_name,Date__gte=sdate,Date__lte=edate).values()))
+    # import ipdb; ipdb.set_trace()
 
-    df=df.sort_values(by=['Date'], ascending=[False])
     # import ipdb;ipdb.set_trace()
     if df.empty:
         context="empty"
         return context
 
     # import ipdb; ipdb.set_trace()
+    df=df.sort_values(by=['Date'], ascending=[False])
     df = df[['Product_Code','Commodity','industry','Unit','Value','Date']]
     df['Date'] = df['Date'].dt.strftime('%d-%m-%Y')
 

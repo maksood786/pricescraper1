@@ -97,6 +97,7 @@ def Scraped_sunsris_Data():
 
         except:
             dfError = dfError.append({'ErrorUrl':url}, ignore_index=True)
+            # pass
 
 
     if Alldata.empty==False:

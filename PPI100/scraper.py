@@ -107,11 +107,11 @@ def Scraped_100PPI_Data():
         except:
             dfError = dfError.append({'ErrorUrl':strLink}, ignore_index=True)
 
-    dfError.to_excel('Errorlog.xlsx',index=False)
+    # dfError.to_excel('Errorlog.xlsx',index=False)
 
 
-    
-    if dfAllData.empty==False:          
+
+    if dfAllData.empty==False:
 
         dfAllData=dfAllData.merge(dfmapname,on='Code')
 
