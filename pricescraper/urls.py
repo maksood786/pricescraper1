@@ -18,9 +18,11 @@ from django.urls import path
 from django.urls import path, include
 from . import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('PPI100/', include('PPI100.urls')),
     path('sunsris/', include('sunsris.urls')),
-    path('', views.index)
+    path('', views.index),
+    path('contactus/', views.contact)
 ]

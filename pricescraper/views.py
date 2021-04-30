@@ -20,6 +20,9 @@ def index(request):
 
     # return render(request, 'main.html')
 
+def contact(request):
+    return render(request, 'contactus.html')
+
 def getComdata(sdate,edate):
 
     sdate=date_time_obj = datetime.strptime(sdate, '%Y-%m-%d')
